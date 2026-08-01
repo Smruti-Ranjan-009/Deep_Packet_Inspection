@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/projects/Deep_Packet_Inspection/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

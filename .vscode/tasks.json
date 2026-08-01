@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build DPI Engine",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "-O2",
+                "-I", "include",
+                "-o", "dpi_engine.exe",
+                "src/dpi_mt.cpp",
+                "src/pcap_reader.cpp",
+                "src/packet_parser.cpp",
+                "src/sni_extractor.cpp",
+                "src/types.cpp"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}
