@@ -1,0 +1,15 @@
+.git
+.gitignore
+build/
+build_asan/
+*.exe
+*.o
+*.obj
+__pycache__/
+*.pyc
+.vscode/
+.vs/
+README.md
+WINDOWS_SETUP.md
+LICENSE
+output.pcap
