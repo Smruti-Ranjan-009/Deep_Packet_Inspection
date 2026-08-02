@@ -8,6 +8,7 @@
             "args": [
                 "-std=c++17",
                 "-O2",
+                "-pthread",
                 "-I", "include",
                 "-o", "dpi_engine.exe",
                 "src/dpi_mt.cpp",

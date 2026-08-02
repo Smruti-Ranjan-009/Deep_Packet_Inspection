@@ -57,6 +57,24 @@ std::string appTypeToString(AppType type) {
 }
 
 // Map SNI/domain to application type
+namespace {
+
+// Returns true only if `pattern` is the domain itself or a proper
+// subdomain of it (e.g. matchesDomain("api.x.com", "x.com") == true,
+// but matchesDomain("netflix.com", "x.com") == false). A plain substring
+// search would also match "x.com" inside "netflix.com" purely by
+// coincidence of spelling -- that's what caused Netflix/Microsoft
+// traffic to get misclassified as Twitter/X.
+bool matchesDomain(const std::string& lower_sni, const std::string& pattern) {
+    if (lower_sni == pattern) return true;
+    if (lower_sni.size() <= pattern.size()) return false;
+    size_t suffix_start = lower_sni.size() - pattern.size();
+    return lower_sni.compare(suffix_start, pattern.size(), pattern) == 0 &&
+           lower_sni[suffix_start - 1] == '.';
+}
+
+} // namespace
+
 AppType sniToAppType(const std::string& sni) {
     if (sni.empty()) return AppType::UNKNOWN;
     
@@ -107,8 +125,8 @@ AppType sniToAppType(const std::string& sni) {
     // Twitter/X
     if (lower_sni.find("twitter") != std::string::npos ||
         lower_sni.find("twimg") != std::string::npos ||
-        lower_sni.find("x.com") != std::string::npos ||
-        lower_sni.find("t.co") != std::string::npos) {
+        matchesDomain(lower_sni, "x.com") ||
+        matchesDomain(lower_sni, "t.co")) {
         return AppType::TWITTER;
     }
     

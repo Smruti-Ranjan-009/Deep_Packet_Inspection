@@ -5,6 +5,7 @@
 // This header provides portable byte-order conversion functions
 
 #include <cstdint>
+#include <cstring>
 
 // Portable byte order conversion
 // Works on any platform without requiring system headers
@@ -52,6 +53,29 @@ inline uint16_t hostToNet16(uint16_t hostValue) {
 // Host to network byte order (32-bit)
 inline uint32_t hostToNet32(uint32_t hostValue) {
     return netToHost32(hostValue);  // Same operation
+}
+
+// ----------------------------------------------------------------------------
+// Alignment-safe field readers.
+//
+// Packet buffers are raw byte arrays with no alignment guarantee -- a TCP
+// header, for example, sits at offset 34 (14-byte Ethernet + 20-byte IP),
+// which is not 4-byte aligned. Dereferencing a `const uint32_t*` cast onto
+// such an address is undefined behavior in C++: it happens to work on x86
+// (which tolerates unaligned loads) but is a guaranteed SIGBUS/crash on
+// strict-alignment architectures like ARM, and UBSan will flag it either
+// way. memcpy into a properly-aligned local is the portable fix and modern
+// compilers optimize it down to the same load instruction on x86.
+inline uint16_t readBE16(const uint8_t* p) {
+    uint16_t v;
+    std::memcpy(&v, p, sizeof(v));
+    return netToHost16(v);
+}
+
+inline uint32_t readBE32(const uint8_t* p) {
+    uint32_t v;
+    std::memcpy(&v, p, sizeof(v));
+    return netToHost32(v);
 }
 
 } // namespace PortableNet

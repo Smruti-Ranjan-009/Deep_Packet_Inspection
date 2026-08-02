@@ -64,6 +64,16 @@ CMAKE_BINARY_DIR = C:\projects\Deep_Packet_Inspection\build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	"C:\Program Files\CMake\bin\ctest.exe" $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -116,48 +126,48 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named packet_analyzer
+# Target rules for targets named dpi_engine
 
 # Build rule for target.
-packet_analyzer: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 packet_analyzer
-.PHONY : packet_analyzer
+dpi_engine: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 dpi_engine
+.PHONY : dpi_engine
 
 # fast build rule for target.
-packet_analyzer/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\packet_analyzer.dir\build.make CMakeFiles/packet_analyzer.dir/build
-.PHONY : packet_analyzer/fast
+dpi_engine/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/build
+.PHONY : dpi_engine/fast
 
-src/main.obj: src/main.cpp.obj
-.PHONY : src/main.obj
+src/dpi_mt.obj: src/dpi_mt.cpp.obj
+.PHONY : src/dpi_mt.obj
 
 # target to build an object file
-src/main.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\packet_analyzer.dir\build.make CMakeFiles/packet_analyzer.dir/src/main.cpp.obj
-.PHONY : src/main.cpp.obj
+src/dpi_mt.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/dpi_mt.cpp.obj
+.PHONY : src/dpi_mt.cpp.obj
 
-src/main.i: src/main.cpp.i
-.PHONY : src/main.i
+src/dpi_mt.i: src/dpi_mt.cpp.i
+.PHONY : src/dpi_mt.i
 
 # target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\packet_analyzer.dir\build.make CMakeFiles/packet_analyzer.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
+src/dpi_mt.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/dpi_mt.cpp.i
+.PHONY : src/dpi_mt.cpp.i
 
-src/main.s: src/main.cpp.s
-.PHONY : src/main.s
+src/dpi_mt.s: src/dpi_mt.cpp.s
+.PHONY : src/dpi_mt.s
 
 # target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\packet_analyzer.dir\build.make CMakeFiles/packet_analyzer.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+src/dpi_mt.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/dpi_mt.cpp.s
+.PHONY : src/dpi_mt.cpp.s
 
 src/packet_parser.obj: src/packet_parser.cpp.obj
 .PHONY : src/packet_parser.obj
 
 # target to build an object file
 src/packet_parser.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\packet_analyzer.dir\build.make CMakeFiles/packet_analyzer.dir/src/packet_parser.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/packet_parser.cpp.obj
 .PHONY : src/packet_parser.cpp.obj
 
 src/packet_parser.i: src/packet_parser.cpp.i
@@ -165,7 +175,7 @@ src/packet_parser.i: src/packet_parser.cpp.i
 
 # target to preprocess a source file
 src/packet_parser.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\packet_analyzer.dir\build.make CMakeFiles/packet_analyzer.dir/src/packet_parser.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/packet_parser.cpp.i
 .PHONY : src/packet_parser.cpp.i
 
 src/packet_parser.s: src/packet_parser.cpp.s
@@ -173,7 +183,7 @@ src/packet_parser.s: src/packet_parser.cpp.s
 
 # target to generate assembly for a file
 src/packet_parser.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\packet_analyzer.dir\build.make CMakeFiles/packet_analyzer.dir/src/packet_parser.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/packet_parser.cpp.s
 .PHONY : src/packet_parser.cpp.s
 
 src/pcap_reader.obj: src/pcap_reader.cpp.obj
@@ -181,7 +191,7 @@ src/pcap_reader.obj: src/pcap_reader.cpp.obj
 
 # target to build an object file
 src/pcap_reader.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\packet_analyzer.dir\build.make CMakeFiles/packet_analyzer.dir/src/pcap_reader.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/pcap_reader.cpp.obj
 .PHONY : src/pcap_reader.cpp.obj
 
 src/pcap_reader.i: src/pcap_reader.cpp.i
@@ -189,7 +199,7 @@ src/pcap_reader.i: src/pcap_reader.cpp.i
 
 # target to preprocess a source file
 src/pcap_reader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\packet_analyzer.dir\build.make CMakeFiles/packet_analyzer.dir/src/pcap_reader.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/pcap_reader.cpp.i
 .PHONY : src/pcap_reader.cpp.i
 
 src/pcap_reader.s: src/pcap_reader.cpp.s
@@ -197,8 +207,56 @@ src/pcap_reader.s: src/pcap_reader.cpp.s
 
 # target to generate assembly for a file
 src/pcap_reader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\packet_analyzer.dir\build.make CMakeFiles/packet_analyzer.dir/src/pcap_reader.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/pcap_reader.cpp.s
 .PHONY : src/pcap_reader.cpp.s
+
+src/sni_extractor.obj: src/sni_extractor.cpp.obj
+.PHONY : src/sni_extractor.obj
+
+# target to build an object file
+src/sni_extractor.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/sni_extractor.cpp.obj
+.PHONY : src/sni_extractor.cpp.obj
+
+src/sni_extractor.i: src/sni_extractor.cpp.i
+.PHONY : src/sni_extractor.i
+
+# target to preprocess a source file
+src/sni_extractor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/sni_extractor.cpp.i
+.PHONY : src/sni_extractor.cpp.i
+
+src/sni_extractor.s: src/sni_extractor.cpp.s
+.PHONY : src/sni_extractor.s
+
+# target to generate assembly for a file
+src/sni_extractor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/sni_extractor.cpp.s
+.PHONY : src/sni_extractor.cpp.s
+
+src/types.obj: src/types.cpp.obj
+.PHONY : src/types.obj
+
+# target to build an object file
+src/types.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/types.cpp.obj
+.PHONY : src/types.cpp.obj
+
+src/types.i: src/types.cpp.i
+.PHONY : src/types.i
+
+# target to preprocess a source file
+src/types.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/types.cpp.i
+.PHONY : src/types.cpp.i
+
+src/types.s: src/types.cpp.s
+.PHONY : src/types.s
+
+# target to generate assembly for a file
+src/types.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dpi_engine.dir\build.make CMakeFiles/dpi_engine.dir/src/types.cpp.s
+.PHONY : src/types.cpp.s
 
 # Help Target
 help:
@@ -208,16 +266,23 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... packet_analyzer
-	@echo ... src/main.obj
-	@echo ... src/main.i
-	@echo ... src/main.s
+	@echo ... test
+	@echo ... dpi_engine
+	@echo ... src/dpi_mt.obj
+	@echo ... src/dpi_mt.i
+	@echo ... src/dpi_mt.s
 	@echo ... src/packet_parser.obj
 	@echo ... src/packet_parser.i
 	@echo ... src/packet_parser.s
 	@echo ... src/pcap_reader.obj
 	@echo ... src/pcap_reader.i
 	@echo ... src/pcap_reader.s
+	@echo ... src/sni_extractor.obj
+	@echo ... src/sni_extractor.i
+	@echo ... src/sni_extractor.s
+	@echo ... src/types.obj
+	@echo ... src/types.i
+	@echo ... src/types.s
 .PHONY : help
 
 

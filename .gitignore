@@ -1,0 +1,24 @@
+# Build output
+build/
+build_asan/
+bin/
+*.o
+*.obj
+*.exe
+!test_dpi.pcap
+
+# Generated pcaps (test_dpi.pcap is the committed sample input, keep it)
+output.pcap
+filtered*.pcap
+
+# IDE / OS
+.vscode/
+.vs/
+.DS_Store
+Thumbs.db
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
