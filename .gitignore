@@ -22,3 +22,10 @@ CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
 compile_commands.json
+
+# Python
+api/__pycache__/
+api/**/__pycache__/
+api/venv/
+api/.venv/
+*.pyc
