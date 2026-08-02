@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t dpi-engine-api:ci .
+
+      - name: Run container
+        run: docker run -d -p 8000:8000 --name dpi-ci dpi-engine-api:ci
+
+      - name: Wait for the container to report healthy
+        run: |
+          for i in $(seq 1 30); do
+            status=$(docker inspect --format='{{.State.Health.Status}}' dpi-ci 2>/dev/null || echo "starting")
+            echo "Health status: $status"
+            if [ "$status" = "healthy" ]; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Container did not become healthy in time"
+          docker logs dpi-ci
+          exit 1
+
+      - name: Smoke test -- GET /health
+        run: |
+          response=$(curl -sf http://127.0.0.1:8000/health)
+          echo "$response"
+          echo "$response" | grep -q '"status":"ok"'
+
+      - name: Smoke test -- POST /analyze with the bundled sample pcap
+        run: |
+          response=$(curl -sf -X POST http://127.0.0.1:8000/analyze \
+            -F "file=@test_dpi.pcap")
+          echo "$response"
+
+          # Fail the build if the engine crashed, mis-dropped traffic, or the
+          # classifier regressed -- these are the exact real bugs found and
+          # fixed during development, so CI re-checks them on every push.
+          echo "$response" | grep -q '"job_id"'
+          echo "$response" | grep -q 'Netflix'
+          echo "$response" | grep -q 'Microsoft'
+          echo "$response" | grep -q 'Forwarded:                    77'
+          echo "$response" | grep -q 'Dropped:                       0'
+
+      - name: Show container logs (always, for debugging)
+        if: always()
+        run: docker logs dpi-ci
+
+      - name: Clean up
+        if: always()
+        run: |
+          docker stop dpi-ci || true
+          docker rm dpi-ci || true
