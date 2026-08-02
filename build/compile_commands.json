@@ -1,31 +1,31 @@
 [
 {
   "directory": "C:/projects/Deep_Packet_Inspection/build",
-  "command": "C:\\msys64\\mingw64\\bin\\c++.exe  @CMakeFiles/dpi_engine.dir/includes_CXX.rsp -O2 -std=gnu++17 -o CMakeFiles\\dpi_engine.dir\\src\\dpi_mt.cpp.obj -c C:\\projects\\Deep_Packet_Inspection\\src\\dpi_mt.cpp",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/dpi_engine.dir/includes_CXX.rsp -O2 -std=gnu++17 -o CMakeFiles\\dpi_engine.dir\\src\\dpi_mt.cpp.obj -c C:\\projects\\Deep_Packet_Inspection\\src\\dpi_mt.cpp",
   "file": "C:/projects/Deep_Packet_Inspection/src/dpi_mt.cpp",
   "output": "CMakeFiles/dpi_engine.dir/src/dpi_mt.cpp.obj"
 },
 {
   "directory": "C:/projects/Deep_Packet_Inspection/build",
-  "command": "C:\\msys64\\mingw64\\bin\\c++.exe  @CMakeFiles/dpi_engine.dir/includes_CXX.rsp -O2 -std=gnu++17 -o CMakeFiles\\dpi_engine.dir\\src\\pcap_reader.cpp.obj -c C:\\projects\\Deep_Packet_Inspection\\src\\pcap_reader.cpp",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/dpi_engine.dir/includes_CXX.rsp -O2 -std=gnu++17 -o CMakeFiles\\dpi_engine.dir\\src\\pcap_reader.cpp.obj -c C:\\projects\\Deep_Packet_Inspection\\src\\pcap_reader.cpp",
   "file": "C:/projects/Deep_Packet_Inspection/src/pcap_reader.cpp",
   "output": "CMakeFiles/dpi_engine.dir/src/pcap_reader.cpp.obj"
 },
 {
   "directory": "C:/projects/Deep_Packet_Inspection/build",
-  "command": "C:\\msys64\\mingw64\\bin\\c++.exe  @CMakeFiles/dpi_engine.dir/includes_CXX.rsp -O2 -std=gnu++17 -o CMakeFiles\\dpi_engine.dir\\src\\packet_parser.cpp.obj -c C:\\projects\\Deep_Packet_Inspection\\src\\packet_parser.cpp",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/dpi_engine.dir/includes_CXX.rsp -O2 -std=gnu++17 -o CMakeFiles\\dpi_engine.dir\\src\\packet_parser.cpp.obj -c C:\\projects\\Deep_Packet_Inspection\\src\\packet_parser.cpp",
   "file": "C:/projects/Deep_Packet_Inspection/src/packet_parser.cpp",
   "output": "CMakeFiles/dpi_engine.dir/src/packet_parser.cpp.obj"
 },
 {
   "directory": "C:/projects/Deep_Packet_Inspection/build",
-  "command": "C:\\msys64\\mingw64\\bin\\c++.exe  @CMakeFiles/dpi_engine.dir/includes_CXX.rsp -O2 -std=gnu++17 -o CMakeFiles\\dpi_engine.dir\\src\\sni_extractor.cpp.obj -c C:\\projects\\Deep_Packet_Inspection\\src\\sni_extractor.cpp",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/dpi_engine.dir/includes_CXX.rsp -O2 -std=gnu++17 -o CMakeFiles\\dpi_engine.dir\\src\\sni_extractor.cpp.obj -c C:\\projects\\Deep_Packet_Inspection\\src\\sni_extractor.cpp",
   "file": "C:/projects/Deep_Packet_Inspection/src/sni_extractor.cpp",
   "output": "CMakeFiles/dpi_engine.dir/src/sni_extractor.cpp.obj"
 },
 {
   "directory": "C:/projects/Deep_Packet_Inspection/build",
-  "command": "C:\\msys64\\mingw64\\bin\\c++.exe  @CMakeFiles/dpi_engine.dir/includes_CXX.rsp -O2 -std=gnu++17 -o CMakeFiles\\dpi_engine.dir\\src\\types.cpp.obj -c C:\\projects\\Deep_Packet_Inspection\\src\\types.cpp",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/dpi_engine.dir/includes_CXX.rsp -O2 -std=gnu++17 -o CMakeFiles\\dpi_engine.dir\\src\\types.cpp.obj -c C:\\projects\\Deep_Packet_Inspection\\src\\types.cpp",
   "file": "C:/projects/Deep_Packet_Inspection/src/types.cpp",
   "output": "CMakeFiles/dpi_engine.dir/src/types.cpp.obj"
 }

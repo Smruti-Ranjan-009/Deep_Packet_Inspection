@@ -82,11 +82,17 @@ async def analyze(
         raise HTTPException(400, "Uploaded file is empty")
 
     cmd = [DPI_ENGINE_BIN, str(input_path), str(output_path)]
-    for app_name in block_app:
+    # Swagger's "Try it out" UI can submit an empty string for a repeatable
+    # form field that was left blank, rather than omitting it entirely.
+    # An empty --block-domain value matches every SNI in the engine's rule
+    # logic (empty-string substring search always "matches"), silently
+    # dropping all traffic -- so filter blanks out here defensively, in
+    # addition to the engine now also rejecting them itself.
+    for app_name in (a.strip() for a in block_app if a and a.strip()):
         cmd += ["--block-app", app_name]
-    for ip in block_ip:
+    for ip in (i.strip() for i in block_ip if i and i.strip()):
         cmd += ["--block-ip", ip]
-    for domain in block_domain:
+    for domain in (d.strip() for d in block_domain if d and d.strip()):
         cmd += ["--block-domain", domain]
     if lbs:
         cmd += ["--lbs", str(lbs)]
@@ -95,13 +101,13 @@ async def analyze(
 
     try:
         result = subprocess.run(
-        cmd,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
-        timeout=SUBPROCESS_TIMEOUT_SECONDS,
-    )
+            cmd,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=SUBPROCESS_TIMEOUT_SECONDS,
+        )
     except subprocess.TimeoutExpired:
         raise HTTPException(504, "dpi_engine timed out processing this capture")
     except FileNotFoundError:

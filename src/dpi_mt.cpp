@@ -110,12 +110,20 @@ struct FlowEntry {
 class Rules {
 public:
     void blockIP(const std::string& ip) {
+        if (ip.empty()) {
+            std::cerr << "[Rules] Ignoring empty --block-ip value\n";
+            return;
+        }
         std::lock_guard<std::mutex> lock(mutex_);
         blocked_ips_.insert(parseIP(ip));
         std::cout << "[Rules] Blocked IP: " << ip << "\n";
     }
     
     void blockApp(const std::string& app) {
+        if (app.empty()) {
+            std::cerr << "[Rules] Ignoring empty --block-app value\n";
+            return;
+        }
         std::lock_guard<std::mutex> lock(mutex_);
         for (int i = 0; i < static_cast<int>(AppType::APP_COUNT); i++) {
             if (appTypeToString(static_cast<AppType>(i)) == app) {
@@ -128,6 +136,12 @@ public:
     }
     
     void blockDomain(const std::string& domain) {
+        if (domain.empty()) {
+            // An empty pattern would match every SNI via .find(""), silently
+            // dropping all traffic -- refuse it instead of matching everything.
+            std::cerr << "[Rules] Ignoring empty --block-domain value\n";
+            return;
+        }
         std::lock_guard<std::mutex> lock(mutex_);
         blocked_domains_.push_back(domain);
         std::cout << "[Rules] Blocked domain: " << domain << "\n";
